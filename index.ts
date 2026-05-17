@@ -40,7 +40,7 @@ export default function (pi: ExtensionAPI) {
       "For any Neovim API call, the first time a specific function is used in a session, you MUST perform a \"Verification Loop\" before executing:",
       "1. Fetch: Use a web fetch tool to get the latest api.txt from https://raw.githubusercontent.com/neovim/neovim/refs/heads/master/runtime/doc/api.txt.",
       "2. Cross-Check: Explicitly look up the function signature and the Indexing section (to confirm if it is 0-based or 1-based for lines and columns,",
-      "   and always report them as 1-based indexes - convert if necessary).",
+      "   and IMPORTANTLY always report them to the user as 1-based indexes - convert if necessary).",
       "3. Confirm: Only after this verification should you construct and execute the msgpack_rpc_call.",
       "",
       "Do not rely on internal memory for indexing or parameter types on the first call of a session.",
