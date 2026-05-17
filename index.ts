@@ -32,7 +32,19 @@ export default function (pi: ExtensionAPI) {
   pi.registerTool({
     name: "discover_neovim",
     label: "Discover Neovim",
-    description: "List Neovim instances to select from (use pi-ask-user tool if available.)",
+    description: "Find runnning Neovim instances",
+    promptGuidelines: [
+      "If you find multiple instances of Neovim, use pi-ask-user if available to let the user chose one.",
+      "",
+      "Strict Neovim API Verification Policy:",
+      "For any Neovim API call, the first time a specific function is used in a session, you MUST perform a \"Verification Loop\" before executing:",
+      "1. Fetch: Use a web fetch tool to get the latest api.txt from https://raw.githubusercontent.com/neovim/neovim/refs/heads/master/runtime/doc/api.txt.",
+      "2. Cross-Check: Explicitly look up the function signature and the Indexing section (to confirm if it is 0-based or 1-based for lines and columns,",
+      "   and always report them as 1-based indexes - convert if necessary).",
+      "3. Confirm: Only after this verification should you construct and execute the msgpack_rpc_call.",
+      "",
+      "Do not rely on internal memory for indexing or parameter types on the first call of a session.",
+    ],
     parameters: Type.Object({}),
     async execute(_, __, ___, ____, ctx) {
       ctx.ui.notify("[pi-neovim] Scanning for instances...", "info");
