@@ -1,5 +1,7 @@
 {
   "name": "pi-neovim",
+  "description": "A Neovim tool for Pi",
+  "keywords": ["pi-package", "neovim", "nvim"],
   "version": "0.1.0",
   "main": "index.ts",
   "type": "module",
@@ -15,8 +17,7 @@
     "@types/node": "25.6.2"
   },
   "pi": {
-    "extensions": [
-      "./index.ts"
-    ]
+    "extensions": [ "./index.ts" ],
+    "image": "https://raw.githubusercontent.com/paperlib/pi-neovim/main/res/talk-to-vim.png"
   }
 }
