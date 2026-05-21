@@ -2,7 +2,7 @@
   "name": "pi-neovim",
   "description": "A Neovim tool for Pi",
   "keywords": ["pi-package", "neovim", "nvim"],
-  "version": "0.1.2",
+  "version": "0.2.0",
   "main": "index.ts",
   "type": "module",
   "repository": {

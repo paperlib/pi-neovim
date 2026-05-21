@@ -8,6 +8,20 @@ import * as os from "node:os";
 import * as fs from "node:fs/promises";
 
 export default function (pi: ExtensionAPI) {
+  let msgpackLoaded = false; pi.on("session_start", async (_event, ctx) => {
+    try {
+      await import("pi-msgpack-rpc");
+      msgpackLoaded = true;
+    } catch {
+      ctx.ui.notify(
+        "⚠️  pi-neovim requires the pi-msgpack-rpc extension.\n" +
+        "Run: !pi install npm:pi-msgpack-rpc\n" +
+        "then /reload\n",
+        "warning"
+      );
+    }
+  });
+
   async function callRpc(server: string, method: string, params: any[] = [], timeoutMs = 15000, ctx?: any) {
     const correlationId = `rpc-${Date.now()}-${Math.random().toString(36).slice(2)}`;
     const replyEvent = `msgpack:rpc:response:${correlationId}`;
@@ -47,6 +61,22 @@ export default function (pi: ExtensionAPI) {
     ],
     parameters: Type.Object({}),
     async execute(_, __, ___, ____, ctx) {
+      if (!msgpackLoaded) {
+        ctx.ui.notify(
+          "❌  pi-neovim requires the pi-msgpack-rpc extension.\n" +
+          "Run: !pi install npm:pi-msgpack-rpc\n" +
+          "then /reload\n",
+          "error"
+        );
+
+        return {
+          content: [{
+            type: "text",
+            text: "pi-msgpack-rpc extension is missing. Please install it first."
+          }]
+        };
+      }
+
       ctx.ui.notify("[pi-neovim] Scanning for instances...", "info");
 
       const files = await glob([
