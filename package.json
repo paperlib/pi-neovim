@@ -2,7 +2,7 @@
   "name": "pi-neovim",
   "description": "A Neovim tool for Pi",
   "keywords": ["pi-package", "neovim", "nvim"],
-  "version": "0.1.1",
+  "version": "0.1.2",
   "main": "index.ts",
   "type": "module",
   "repository": {
@@ -10,7 +10,6 @@
     "url": "https://github.com/paperlib/pi-neovim.git"
   },
   "dependencies": {
-    "pi-msgpack-rpc": "^0.2.4",
     "glob": "13.0.6"
   },
   "devDependencies": {
